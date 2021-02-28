@@ -1,0 +1,1 @@
+pyinstaller --icon=ka5.ico --onefile onsen.py
