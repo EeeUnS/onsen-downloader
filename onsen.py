@@ -23,8 +23,9 @@ def getMP3(url):
 
         print(name)
 
-        os.system("ffmpeg -i " + e + " -c copy "  +name + '.ts')
-        os.system("ffmpeg -i " + name + '.ts' + " -write_xing 0 -id3v2_version 0 "  + name + '.mp3' )
+        os.system(f"ffmpeg -i {e} -c copy {name}.ts")
+        os.system(f"ffmpeg -i {name} .ts -write_xing 0 -id3v2_version 0 {name}.mp3")
+
     except Exception as e:
         print(e)
 
