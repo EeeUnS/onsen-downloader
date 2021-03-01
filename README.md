@@ -1,5 +1,19 @@
 # onsen-downloader
 
+音泉(onsen) radio downloader.
+
+download release `onsen-downloader.zip`
+
+1. unpack onsen-downloader.zip 3 file in folder
+  - ffmpeg.exe
+  - onsen.exe
+  - urlLink.txt
+  (`onsen.exe` inside using`ffmpeg.exe` )
+2. redio url add to `urlLink.txt`. see example in `urlLink.txt`
+3. onsen.exe
+
+------------------------
+
 onsen 최신회차 라디오를 다운로드합니다.
 
 사용법
