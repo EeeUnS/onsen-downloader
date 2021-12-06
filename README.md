@@ -1,6 +1,7 @@
 # onsen-downloader
 
 音泉(onsen) radio downloader.
+Download latest episode.
 
 download release `onsen-downloader.zip`
 
