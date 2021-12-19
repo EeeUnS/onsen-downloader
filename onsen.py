@@ -3,10 +3,7 @@ import re
 import codecs
 import os
 
-#https://onsen-ma3phlsvod.sslcs.cdngc.net/onsen-ma3pvod/_definst_/202102/iine2102258sid-36.mp4/playlist.m3u8
-# url = 'https://www.onsen.ag/program/iine'
-# url2 = 'https://www.onsen.ag/program/kokuradio'
-
+command = 'youtube-dl.exe  --add-header Accept:"*/*" --add-header Accept-Encoding:"gzip, deflate, br" --add-header Accept-Language:"ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7,ja;q=0.6" --add-header Connection:"keep-alive" --add-header Host:"onsen-ma3phlsvod.sslcs.cdngc.net" --add-header Origin:"https://www.onsen.ag" --add-header Referer:"https://www.onsen.ag/" --add-header "sec-ch-ua: Google Chrome;v=95, Chromium;v=95, ;Not A Brand;v=99" --add-header sec-ch-ua-mobile:"?0" --add-header sec-ch-ua-platform:""Windows"" --add-header Sec-Fetch-Dest:"empty" --add-header Sec-Fetch-Mode:"cors" --add-header Sec-Fetch-Site:"cross-site" --add-header User-Agent:"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36"  --extract-audio  --audio-format mp3 '
 
 def getMP3(url):
     try:
@@ -20,18 +17,15 @@ def getMP3(url):
         print(e)
         name = re.search("((?!\/).)*(?:(\.mp))", e)
         name = name.group().split('.')[0]
-
+        output_file = "-o \"" + name +  ".mp3\"  "
+        print(output_file)
         print(name)
-
-        os.system(f"ffmpeg -i {e} -c copy {name}.ts")
-        os.system(f"ffmpeg -i {name}.ts -write_xing 0 -id3v2_version 0 {name}.mp3")
-
+        
+        print(command + output_file + e)
+        os.system(command + output_file + e)
     except Exception as e:
         print(e)
-
 
 f = open("urlLink.txt", 'r')
 for line in f:
     getMP3(line)
-
-
