@@ -1,6 +1,9 @@
 # onsen-downloader
 
+this is managed repo
+
 音泉(onsen) radio downloader.
+Download latest episode.
 
 download release `onsen-downloader.zip`
 
