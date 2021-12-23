@@ -5,7 +5,7 @@ this is managed repo
 音泉(onsen) radio downloader.
 Download latest episode.
 
-download release `onsen-downloader.zip`
+download [release](https://github.com/EeeUnS/onsen-downloader/releases) `onsen-downloader.zip`
 
 1. unpack onsen-downloader.zip 3 file in folder
   - ffmpeg.exe
@@ -21,7 +21,7 @@ download release `onsen-downloader.zip`
 onsen 최신회차 라디오를 다운로드합니다.
 
 사용법
-1. release에서  onsen-downloader.zip를 다운받습니다.  압축을풀면 다음이 한폴더에 존재합니다
+1. [release](https://github.com/EeeUnS/onsen-downloader/releases)에서  onsen-downloader.zip를 다운받습니다.  압축을풀면 다음이 한폴더에 존재합니다
   - ffmpeg.exe
   - onsen.exe
   - urlLink.txt
