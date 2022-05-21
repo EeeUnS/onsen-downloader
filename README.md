@@ -45,13 +45,10 @@ onsen.exe 사용후에는 urlLink.txt 이 생성 되어있습니다. 여기에�
 아래 커맨드를 순차적으로 실행
 
 
-ffmpeg -headers \"referer: https://www.onsen.ag/\" -i   파일url  -c copy  생성파일명1.ts
-ffmpeg -i 생성파일명1.ts -write_xing 0 -id3v2_version 0  생성파일명2.mp3
+- ffmpeg -headers \"referer: https://www.onsen.ag/" -i   파일url  -c copy  생성파일명1.ts
+- ffmpeg -i 생성파일명1.ts -write_xing 0 -id3v2_version 0  생성파일명2.mp3
 
 혹시 에러 발생등으로 문제가 있을시에는 cmd 창에서 실행을 해보고(창이 안꺼지고 로그가 남아있음) 에러를 이슈로 넣어주세요.
-
-
-Thanks to ㅋㅋ(210.197)
 
 
 
