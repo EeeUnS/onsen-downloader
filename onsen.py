@@ -6,58 +6,62 @@ import os
 import sys
 import io
 
-#ffmpeg -i " + e + " -c copy " +name + '.ts'
-#"ffmpeg -i " + name + '.ts' + " -write_xing 0 -id3v2_version 0 " + name + '.mp3' )
+# ffmpeg -i " + e + " -c copy " +name + '.ts'
+# "ffmpeg -i " + name + '.ts' + " -write_xing 0 -id3v2_version 0 " + name + '.mp3' )
 command = "ffmpeg -headers \"referer: https://www.onsen.ag/\""
 w = open("fileWepUrl.txt", "a")
 
-def programNames(url):
-    urlSplit = url.split("/")
-    program_name = urlSplit[len(urlSplit) - 1].strip()
-    alternative_program_names = [program_name]
-    if '_' in program_name:
-        alternative_program_names.append(''.join(str.split(program_name, '_')))
-    return alternative_program_names
 
-def matchFileWebPath(reqText, programName):
-    express = f'http((?!http).)*({programName})((?!http).)*m3u8'
+def GetProgramNames(sUrl):
+    dicUrlSplit = sUrl.split("/")
+    sProgramName = dicUrlSplit[len(dicUrlSplit) - 1].strip()
+    dicProgramNames = [sProgramName]
+    if '_' in sProgramName:
+        dicProgramNames.append(''.join(str.split(sProgramName, '_')))
+    return dicProgramNames
+
+
+def GetFileWebPath(sReqText, sProgramName):
+    express = f'http((?!http).)*({sProgramName})((?!http).)*m3u8'
     print(f'searching {express}')
-    fileWepPath = re.search(express , reqText)
-    return fileWepPath
+    sFileWepPath = re.search(express, sReqText)
+    return sFileWepPath
 
 
 def getMP3(url):
     try:
-        program_names = programNames(url)
-        print(program_names)
+        sProgramNames = GetProgramNames(url)
+        print(sProgramNames)
 
         req = requests.get(url)
         reqText = req.text
         # print(req)
         # print(b)
-        
-        for program_name in program_names:
-            fileWepPath = matchFileWebPath(reqText, program_name)
-            if fileWepPath:
-                break
-        if not fileWepPath:
-            print("file not found")
-            return
-        
-        fileWepPath = codecs.decode(fileWepPath.group(), 'unicode-escape')
-        print(fileWepPath)
 
-        fileName = re.search("((?!\/).)*(?:(\.mp))", fileWepPath)
+        for sProgramName in sProgramNames:
+            sFileWepPath = GetFileWebPath(reqText, sProgramName)
+            if sFileWepPath:
+                break
+        if not sFileWepPath:
+            print("sFileWepPath not found", sProgramNames)
+            raise Exception("sFileWepPath not found")
+
+
+        sFileWepPath = codecs.decode(sFileWepPath.group(), 'unicode-escape')
+        print(sFileWepPath)
+
+        fileName = re.search("((?!\/).)*(?:(\.mp))", sFileWepPath)
         print(fileName)
         fileName = fileName.group().split('.')[0]
 
-        commandInput =  "-i " + fileWepPath + " "
+        commandInput = "-i " + sFileWepPath + " "
         commandOutput = " -acodec mp3 " + fileName + ".mp3"
-        os.system(command +" -i " + fileWepPath + " -c copy "  +fileName + '.ts')
-        os.system("ffmpeg -i " + fileName + '.ts' + " -write_xing 0 -id3v2_version 0 "  + fileName + '.mp3' )
-        w.write(fileWepPath + "\n")
-    except Exception as fileWepPath:
-        print(fileWepPath)
+        os.system(command + " -i " + sFileWepPath + " -c copy " + fileName + '.ts')
+        os.system("ffmpeg -i " + fileName + '.ts' + " -write_xing 0 -id3v2_version 0 " + fileName + '.mp3')
+        w.write(sFileWepPath + "\n")
+    except Exception as sFileWepPath:
+        print(sFileWepPath)
+
 
 f = open("urlLink.txt", 'r')
 lines = f.readlines()
