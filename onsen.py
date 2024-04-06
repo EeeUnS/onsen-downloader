@@ -11,23 +11,39 @@ import io
 command = "ffmpeg -headers \"referer: https://www.onsen.ag/\""
 w = open("fileWepUrl.txt", "a")
 
+def programNames(url):
+    urlSplit = url.split("/")
+    program_name = urlSplit[len(urlSplit) - 1].strip()
+    alternative_program_names = [program_name]
+    if '_' in program_name:
+        alternative_program_names.append(''.join(str.split(program_name, '_')))
+    return alternative_program_names
+
+def matchFileWebPath(reqText, programName):
+    express = f'http((?!http).)*({programName})((?!http).)*m3u8'
+    print(f'searching {express}')
+    fileWepPath = re.search(express , reqText)
+    return fileWepPath
+
+
 def getMP3(url):
     try:
-        urlSplit = url.split("/")
-        programName = urlSplit[len(urlSplit) - 1].strip()
-        print(programName)
+        program_names = programNames(url)
+        print(program_names)
 
-        req =requests.get(url)
+        req = requests.get(url)
         reqText = req.text
         # print(req)
         # print(b)
-
-        express = "http((?!http).)*("+ programName + ")((?!http).)*m3u8"
-        print(express)
-        fileWepPath = re.search(express , reqText)
-        print(fileWepPath)
-        if not fileWepPath :
-            print("error")
+        
+        for program_name in program_names:
+            fileWepPath = matchFileWebPath(reqText, program_name)
+            if fileWepPath:
+                break
+        if not fileWepPath:
+            print("file not found")
+            return
+        
         fileWepPath = codecs.decode(fileWepPath.group(), 'unicode-escape')
         print(fileWepPath)
 
